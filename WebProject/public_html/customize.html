@@ -10,6 +10,29 @@
             margin-bottom: 20px;
         }
     </style>
+    <script> 
+
+    function changeImageRight(id,pos,num)
+        {
+        var img = document.getElementById(id);
+        var parsed = img.src.split("/");
+        var parsed2 = parsed[5].split("");
+        var newNum = (parseInt(parsed2[pos]) % num) + 1;
+        img.src="images/" + id + newNum.toString() + ".png";
+        return false;
+        }
+    
+    function changeImageLeft(id,pos,num)
+        {
+        var img = document.getElementById(id);
+        var parsed = img.src.split("/");
+        var parsed2 = parsed[5].split("");
+        var newNum = ((parseInt(parsed2[pos])-2+num) % num) + 1;
+        img.src="images/" + id + newNum.toString() + ".png";
+        return false;
+        }
+
+</script>
 </head>
 
 <body>
@@ -27,13 +50,13 @@
     
     <section class="w3-container w3-content w3-center" style="border: 3px solid LightGray; width: fit-content">
         <div style="position:relative; display:inline; margin-left:50px; margin-right:50px; margin-top:50px">
-            <image src="images/bg5.png" alt="Your avatar"/>
-            <image src="images/sprite3.png" style="position:absolute; bottom:3; right:0"/>
-            <image src="images/pet4.png" style="position:absolute; bottom:10; left:10"/>
+            <image id="bg" src="images/bg5.png" alt="Your background"/>
+            <image id="sprite" src="images/sprite3.png" style="position:absolute; bottom:3; right:0" alt="Your avatar"/>
+            <image id="pet" src="images/pet4.png" style="position:absolute; bottom:10; left:10" alt="Your companion"/>
         </div>
-        <p class="w3-text w3-large"><button>&lt;</button>  Background  <button>&gt;</button></p>
-        <p class="w3-text w3-large"><button>&lt;</button>  Color  <button>&gt;</button></p>
-        <p class="w3-text w3-large"><button>&lt;</button>  Pet  <button>&gt;</button></p>
+        <p class="w3-text w3-large"><button onclick="changeImageLeft('sprite',6,5)">&lt;</button>  Avatar Color  <button onclick="changeImageRight('sprite',6,5)">&gt;</button></p>
+        <p class="w3-text w3-large"><button onclick="changeImageLeft('bg',2,5)">&lt;</button>  Background  <button onclick="changeImageRight('bg',2,5)">&gt;</button ></p>
+        <p class="w3-text w3-large"><button onclick="changeImageLeft('pet',3,4);">&lt;</button>  Companion  <button onclick="changeImageLeft('pet',3,4);">&gt;</button></p>
     </section>
     
     <footer class="w3-center w3-black w3-padding-16" style="margin-top:240px">
