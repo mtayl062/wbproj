@@ -23,13 +23,17 @@
     </nav>
 
     <section class="w3-container w3-center" style="max-width:1800px">
-      <h1>My Avatar</h1>
+      <h1 class="w3-text-purple" style="text-shadow: 2px 1px #444;"><b>My Avatar</b></h1>
     </section>
 
     <section class="w3-container w3-content w3-center w3-padding-large" style="max-width:1000px; min-width:1100px; border: 3px solid LightGray">
         <div style="width:45%; display:inline-block; float:left">
-            <section class="w3-container w3-content w3-center" style="border: 3px solid LightGray; width: fit-content; padding: 10px">
-                <image src="images/sprite1.png" alt="Your avatar" />
+            <section class="w3-container w3-content w3-center" style="border: 3px solid LightGray; width: fit-content; padding: 10px;">
+                <div style="position:relative; display:inline;">
+                    <image id="bg" src="images/bg3.png" alt="Your background" style="border: 3px solid black"/>
+                    <image id="sprite" src="images/sprite2.png" style="position:absolute; bottom:3px; right:3px" alt="Your avatar"/>
+                    <image id="pet" src="images/pet1.png" style="position:absolute; bottom:10px; left:10px" alt="Your companion"/>
+                </div>
                 <br>
                 <a href="customize.html" class="w3-button" style="margin-top:10px">Customize</a>
             </section>
