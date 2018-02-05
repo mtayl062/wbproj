@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
     <style>
-        #top-bottom-space {
+        .top-bottom-space {
             margin-top: 20px;
             margin-bottom: 20px;
         }
@@ -19,11 +19,54 @@
 		body {
 			background-image: url("images/altbg.png");
 		}
+		.shadow {
+			text-shadow: 2px 1px #444;
+		}
+		footer {
+			margin-top: 240px;
+		}
 		#main_header {
 			max-width: 1800px;
 		}
-		.shadow {
-			text-shadow: 2px 1px #444;
+		#avatar_section {
+			border: 3px solid LightGray;
+			width: fit-content;
+			padding: 10px;
+		}
+		#avatar_outer {
+			width: 45%;
+			display: inline-block;
+			float: left;
+		}
+		#avatar_inner {
+			position: relative;
+			display: inline;
+		}
+		#bg {
+			border: 3px solid black;
+		}
+		#sprite {
+			position: absolute;
+			bottom: 3;
+			right: 0;
+		}
+		#pet {
+			position: absolute;
+			bottom: 10px;
+			left: 10px;
+		}
+		table {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#level_info {
+			width: 45%
+			height: 300px;
+			display: inline-block;
+			float: right;
+		}
+		#cus_button {
+			margin-top: 10px;
 		}
     </style>
 </head>
@@ -42,28 +85,28 @@
     </section>
 
     <section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
-        <div style="width:45%; display:inline-block; float:left">
-            <section class="w3-container w3-content w3-center" style="border: 3px solid LightGray; width: fit-content; padding: 10px;">
-                <div style="position:relative; display:inline;">
-                    <image id="bg" src="images/bg3.png" alt="Your background" style="border: 3px solid black"/>
-                    <image id="sprite" src="images/sprite2.png" style="position:absolute; bottom:3px; right:3px" alt="Your avatar"/>
-                    <image id="pet" src="images/pet1.png" style="position:absolute; bottom:10px; left:10px" alt="Your companion"/>
+        <div id="avatar_outer">
+            <section id="avatar_section" class="w3-container w3-content w3-center">
+                <div id="avatar_inner">
+                    <image id="bg" src="images/bg3.png" alt="Your background"/>
+                    <image id="sprite" src="images/sprite2.png" alt="Your avatar"/>
+                    <image id="pet" src="images/pet1.png" alt="Your companion"/>
                 </div>
                 <br>
-                <a href="customize.html" class="w3-button" style="margin-top:10px">Customize</a>
+                <a id="cus_button" href="customize.html" class="w3-button">Customize</a>
             </section>
         </div>
-        <div style="width:45%; height:300px; display:inline-block; float:right">
-            <div id="top-bottom-space">
+        <div id="level_info">
+            <div class="top-bottom-space">
                 <h3 class="w3-purple">Level 1<br></h3>
             </div>
-            <div id="top-bottom-space">
-                <meter min="0" max="100" value="30"></meter>
-                <a>30/100 XP</a>
+            <div class="top-bottom-space">
+                <meter min="0" max="100" value="70"></meter>
+                <a>70/100 XP</a>
             </div>
-            <div id="top-bottom-space">
-                <p>Latest medals obtained:</p>
-                <table style="margin-left:auto; margin-right:auto">
+            <div class="top-bottom-space">
+                <p>Latest awards obtained:</p>
+                <table>
                     <tr>
                         <th><image src="images/medal1.png" alt="Medal 1" title="Completed World 1.1!"/></th>
                         <th><image src="images/medal2.png" alt="Medal 2" title="Completed a level with no mistakes!"/></th>
@@ -74,7 +117,7 @@
         </div>
     </section>
 
-    <footer class="w3-center w3-black w3-padding-16" style="margin-top:240px">
+    <footer class="w3-center w3-black w3-padding-16">
         <p>&copy; Maxime Taylor</p>
     </footer>
 
