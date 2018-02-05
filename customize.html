@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+	<link rel="stylesheet" href="style/customize.css">
     <style>
         #top-bottom-space {
             margin-top: 20px;
@@ -20,6 +21,12 @@
 		}
 		body {
 			background-image: url("images/altbg.png");
+		}
+		#main_header {
+			max-width: 1800px;
+		}
+		.shadow {
+			text-shadow: 2px 1px #444;
 		}
     </style>
     <script> 
@@ -57,8 +64,8 @@
         <a href="login.html" class="w3-button w3-bar-item w3-right w3-hover-orange">Login</a>
     </nav>
     
-    <section class="w3-container w3-center" style="max-width:1800px">
-        <h1 class="w3-text-purple" style="text-shadow: 2px 1px #444;"><b>Customize My Avatar</b></h1>
+    <section id="main_header" class="w3-container w3-center">
+        <h1 class="w3-text-purple shadow"><b>Customize My Avatar</b></h1>
     </section>
     
     <section id="mainbox" class="w3-container w3-content w3-center">
