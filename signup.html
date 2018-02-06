@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
     <style>
-        #top-bottom-space {
+        .top-bottom-space {
             margin-top: 20px;
             margin-bottom: 20px;
         }
@@ -24,11 +24,20 @@
 		body {
 			background-image: url("images/altbg.png");
 		}
+		footer {
+			margin-top: 240px;
+		}
 		#main_header {
 			max-width: 1800px;
 		}
 		.shadow {
 			text-shadow: 2px 1px #444;
+		}
+		.input_margin {
+			margin: 10px;
+		}
+		img {
+			margin: 20px;
 		}
     </style>
 </head>
@@ -48,15 +57,16 @@
 	
 	<section  id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<form>
-			<div><label>Username: </label><input type="text" style="margin:10px"></div>
-			<div><label>Email address: </label><input type="email" style="margin:10px"></div>
-			<div><label>Password: </label><input type="password" style="margin:10px"></div>
-			<div><label>Confirm password: </label><input type="password" style="margin:10px"></div>
-			<div style="margin:10px"><input type="submit" href="login.html"></div>
+			<img src="images/pet3.png" alt="One of the game's pets"/>
+			<div><label>Username: </label><input type="text" class="input_margin"></div>
+			<div><label>Email address: </label><input type="email" class="input_margin"></div>
+			<div><label>Password: </label><input type="password" class="input_margin"></div>
+			<div><label>Confirm password: </label><input type="password" class="input_margin"></div>
+			<div class="input_margin"><input type="submit" href="login.html"></div>
 		</form>
 	</section>
 	
-	<footer class="w3-center w3-black w3-padding-16" style="margin-top:240px">
+	<footer class="w3-center w3-black w3-padding-16">
         <p>&copy; Maxime Taylor</p>
     </footer>
 
