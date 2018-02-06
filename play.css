@@ -1,0 +1,66 @@
+div {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+#mainbox {
+	max-width:800px;
+	min-width:600px;
+	border: 3px solid LightGray;
+	background-color: rgba(250,250,250,0.7);
+}
+.rect {
+  height: 30px;
+  background-color: #aa44cc;
+  display: inline-block;
+  text-align: center;
+  font-size:12px;
+}
+.l1 {
+	background-color: #FFC300;
+	width:60px;
+}
+.r1 {
+	background-color: LightGray;
+	width:120px;	
+}
+.l2 {
+	background-color: #FE810D;
+	width:90px;	
+}
+.r2 {
+	background-color: LightGray;
+	width:90px;	
+}
+.lans {
+	background-color: #FFC300;
+	width:30px;	
+	border: 1px solid Gray;
+}
+.rans {
+	background-color: #FE810D;
+	width: 30px;
+	border: 1px solid Gray;
+}
+.rest {
+	background-color: LightGray;
+	width:30px;
+	border: 1px solid Gray;
+}
+ul {
+	list-style:none;
+	padding-left:0;
+	margin:0;
+}
+#answer {
+	visibility: hidden;
+	margin-bottom: 40px;
+}	
+.small_shadow {
+	text-shadow: 1px 1px #999;
+}
+h3 {
+	margin-top: 60px;
+}
+#plus {
+	font-size: 40px;
+}

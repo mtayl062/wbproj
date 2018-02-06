@@ -1,0 +1,30 @@
+h1 {
+	position: relative;
+	font-size: 100px;
+	color: purple;
+	margin-top: 0;
+	font-family: 'Myriad Pro', 'Myriad', helvetica, arial, sans-serif;
+	text-shadow: 3px 4px 3px #666666;
+	letter-spacing: -6px;
+	-webkit-text-stroke: 1px white;
+}
+p {
+	font-size: 16px;
+}
+div {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+img {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+body {
+	background-image: url("images/mainbg.png");
+}
+#mainbox {
+	max-width: 1100px;
+	min-width: 1000px;
+	border: 3px solid LightGray;
+	background-color: rgba(250,250,250,0.9);
+}
