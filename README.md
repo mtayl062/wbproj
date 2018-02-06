@@ -6,7 +6,7 @@ Course: CSI3540
 or her progress is tracked and rewarded with experience points, awards and customization options. Questions are pulled from a database to ensure a constant level of difficulty 
 throughout a given level, but the order is randomized so a level is a bit different when replayed.
 
-Technologies chosen (as of Monday February 2nd, 2017):
+Technologies chosen (as of Monday February 2nd, 2018):
 - HTML and CSS
 - Javascript for client-side scripting
 - PHP for server-side scripting
