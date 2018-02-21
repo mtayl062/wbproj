@@ -41,8 +41,8 @@
 		<?php
 			$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=harry22dragon');
 			$good = "GOOD";
-			if (!$db) {
-				echo '<h1>'.$good.'</h1>';
+			if ($db) {
+				echo '<h3>'.$good.'</h3>';
 			}
 			$query = "select * from ufo.ufofact LIMIT 3";
 			$result = pg_query($db, $query);
