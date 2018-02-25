@@ -37,20 +37,6 @@
 			<p>Not registered? Nice to meet you! Click <a href="signup.html">here</a> to get started!</p>
 			<p>Already a member? Welcome back! Click <a href="login.html">here</a> to log in and get going!</p>
 		</div>
-		<div>
-		<?php
-			$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=harry22dragon');
-			$good = "GOOD";
-			if (!$db) {
-				echo '<h1>'.$good.'</h1>';
-			}
-			$query = "select * from ufo.ufofact LIMIT 3";
-			$result = pg_query($db, $query);
-			while ($row = pg_fetch_row($result)) {
-				echo $row[1];
-			}
-		?>
-		</div>
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">

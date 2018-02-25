@@ -39,7 +39,7 @@
 		</div>
 		<div>
 		<?php
-			$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=harry22dragon');
+			$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
 			$good = "GOOD";
 			if ($db) {
 				echo '<h3>'.$good.'</h3>';

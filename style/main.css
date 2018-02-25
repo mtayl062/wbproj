@@ -24,6 +24,12 @@ body {
 
 #main_header {
 	max-width: 1800px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+h1 {
+	font-size: 400%
 }
 
 .input_margin {
