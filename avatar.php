@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php
+	require_once 'config.php';
+?>
+
 <html>
 
 <head>
@@ -28,12 +33,12 @@
                 <div id="avatar_inner">
 					<?php
 						$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
-						$query = "select * from wbproj.user_avatar where userid='1'";
+						$query = "select * from wbproj.users where userid='1'";
 						$result = pg_query($db, $query);
 						while ($row = pg_fetch_row($result)) {
-							echo '<image id="sprite" src="images/sprite'.$row[1].'.png" alt="Your sprite"/>'."\n";
-							echo '<image id="bg" src="images/bg'.$row[2].'.png" alt="Your background"/>'."\n";
-							echo '<image id="pet" src="images/pet'.$row[3].'.png" alt="Your avatar"/>'."\n";
+							echo '<image id="sprite" src="images/sprite'.$row[4].'.png" alt="Your sprite"/>'."\n";
+							echo '<image id="bg" src="images/bg'.$row[5].'.png" alt="Your background"/>'."\n";
+							echo '<image id="pet" src="images/pet'.$row[6].'.png" alt="Your avatar"/>'."\n";
 						}
 					?>
                 </div>

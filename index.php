@@ -44,7 +44,7 @@
 			if ($db) {
 				echo '<h3>'.$good.'</h3>';
 			}
-			$query = "select * from ufo.ufofact LIMIT 3";
+			$query = sprintf('select * from %s LIMIT 1','wbproj.users');
 			$result = pg_query($db, $query);
 			while ($row = pg_fetch_row($result)) {
 				echo $row[1];
