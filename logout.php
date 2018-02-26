@@ -31,7 +31,7 @@
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<div class="top-bottom-space">
 			<p>Logout successful.<p>
-			<p>Not done yet? Click <a href="login.php">here</a> if you'd like to log in again.</p>
+			<p>Thank you for playing All Talk and No Fraction!</p>
 		</div>
 		<div class="top-bottom-space">
 			<img src="images/pet1.png" alt="One of the game's pets" id="pet-banner"/>
@@ -39,6 +39,7 @@
 			<img src="images/pet3.png" alt="One of the game's pets" id="pet-banner"/>
 			<img src="images/pet4.png" alt="One of the game's pets" id="pet-banner"/>
 		</div>
+		<div class="top-bottom-space"><p>Not done yet? Click <a href="login.php">here</a> if you'd like to log in again.</p></div>
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">
