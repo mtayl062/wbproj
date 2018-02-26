@@ -1,3 +1,11 @@
+<?php
+	session_start();
+	if (!isset($_SESSION["username"]) || empty($_SESSION['username'])) {
+		header("location: index.html");
+		exit;
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -34,22 +42,7 @@
 			<img src="images/pet4.png" alt="One of the game's pets"/>
 		</div>
 		<div>
-			<p>Not registered? Nice to meet you! Click <a href="signup.html">here</a> to get started!</p>
-			<p>Already a member? Welcome back! Click <a href="login.html">here</a> to log in and get going!</p>
-		</div>
-		<div>
-		<?php
-			$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
-			$good = "GOOD";
-			if ($db) {
-				echo '<h3>'.$good.'</h3>';
-			}
-			$query = sprintf('select * from %s LIMIT 1','wbproj.users');
-			$result = pg_query($db, $query);
-			while ($row = pg_fetch_row($result)) {
-				echo $row[1];
-			}
-		?>
+			<p><a href="logout.php" class="w3-button w3-purple">Sign Out of Your Account</a></p>
 		</div>
 	</section>
 	

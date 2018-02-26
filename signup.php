@@ -96,11 +96,11 @@
 				<label>Password: </label><input type="password" class="input_margin" name="password" value="<?php echo $password; ?>">
 				<span class="help-block"><?php echo $password_err?></span></div>
 			<div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : '';?>">
-				<label>Confirm password: </label><input type="password" class="input_margin" name="confirm_password" value="<?php echo $confirm_password; ?>">
+				<label>Confirm: </label><input type="password" class="input_margin" name="confirm_password" value="<?php echo $confirm_password; ?>">
 				<span class="help-block"><?php echo $confirm_password_err?></span></div>
 			<div class="input_margin"><input type="submit" class="w3-button w3-purple"></div>
 		</form>
-		<p>Already have an account? <a href="login.php">Login here.</a></p>
+		<div><p>Already have an account? <a href="login.php">Login here.</a></p></div>
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">
