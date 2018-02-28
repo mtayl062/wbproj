@@ -12,3 +12,5 @@ Technologies chosen (as of Monday February 2nd, 2018):
 - PHP for server-side scripting
 - Postgresql database which will hold questions and answers as well as user information (username, avatar choices, progress, etc.)
 - No external APIs as of yet
+
+Session management inspired by: https://www.tutorialrepublic.com/php-tutorial/php-mysql-login-system.php
