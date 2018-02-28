@@ -3,7 +3,8 @@
 	$query = "SELECT unlock FROM wbproj.users WHERE userid = '1'";
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
-	$level_unlock = intval($row[0]);
+	//$level_unlock = intval($row[0]);
+	$level_unlock = 3;
 ?>
 
 <!DOCTYPE html>
@@ -31,10 +32,12 @@
     </section>
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
-		<div name="lvl1"><a href="play.html"><img id = "lvlbutton" src="images/level1.png" alt="Level 1"></a></div>
-		<div name="lvl2" <?php if ($level_unlock < 2) {echo 'class="locked" ';} ?>><a href="play.html"><img id = "lvlbutton" src="images/level2.png" alt="Level 2"></a></div>
-		<div name="lvl3" <?php if ($level_unlock < 3) {echo 'class="locked" ';} ?>><a href="play.html"><img id = "lvlbutton" src="images/level3.png" alt="Level 3" title="Locked"/></a></div>
-		<div name="lvl4" <?php if ($level_unlock < 4) {echo 'class="locked" ';} ?>><a href="play.html"><img id = "lvlbutton" src="images/level4.png" alt="Level 4" title="Locked"/></a></div>
+		<form action="/play.php" method="POST">
+			<div><input type="image" id = "lvlbutton" name="lvl1" value="lvl1" src="images/level1.png" alt="Level 1"></div>
+			<div name="lvl2" <?php if ($level_unlock < 2) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl2" value="lvl2" src="images/level2.png" alt="Level 2"></div>
+			<div name="lvl3" <?php if ($level_unlock < 3) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl3" value="lvl3" src="images/level3.png" alt="Level 3" title="Locked"/></div>
+			<div name="lvl4" <?php if ($level_unlock < 4) {echo 'class="locked" ';} ?>><input type= "image" id = "lvlbutton" name="lvl4" value="lvl4" src="images/level4.png" alt="Level 4" title="Locked"/></div>
+		</form>
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">
