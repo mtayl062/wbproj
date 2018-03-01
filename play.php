@@ -13,11 +13,11 @@
 	if (isset($_POST['qid'])) {
 		$question = intval($_POST['qid']);
 	}
+	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
 	$score = 0;
 	if (isset($_POST['score'])) {
 		$score = intval($_POST['score']);
 	}
-	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
 	$query = sprintf("select n1, d1, n2, d2, a, b, c, d, answer, op from wbproj.questions WHERE lid = '%d' AND qid = '%d'",$level,$question);
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
@@ -75,7 +75,6 @@
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<span id="scoreboard" class="w3-purple" >Your score: <?php echo $score?></span>
 		<img src="images/pet2.png" align="right"/>
-		<br>
 		<h2 class="w3-text-purple small_shadow"><b>Question <?php echo $question?> :  </b> <?php echo $n1.'/'.$d1?> <?php echo $op ?> <?php echo $n2.'/'.$d2?> = ?</h2>
 		<br>
 		<ul>
@@ -96,7 +95,7 @@
 			</ul>
 		<div>
 		<div>
-			<form method="POST" action="<?php if ($question == 10) {echo 'levelComplete.php';} else {echo 'play.php';}?>">
+			<form method="POST" action="<?php if ($question == 4) {echo 'levelComplete.php';} else {echo 'play.php';}?>">
 				<input type="hidden" name="lvl<?php echo $level?>" value="lvl<?php echo $level?>">
 				<input type="hidden" name="qid" value="<?php echo($question + 1)?>">
 				<input type="hidden" name="score" id="score" value="<?php echo($score)?>">
