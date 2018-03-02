@@ -23,12 +23,32 @@ function showAnswer(id,ans) {
 
 function prepareCSS(n1,d1,n2,d2) {
 	var boxes = d1*d2;
+	var div = gcd(d1,d2);
 	var l1 = document.getElementById("l1");
 	var r1 = document.getElementById("r1");
 	var l2 = document.getElementById("l2");
 	var r2 = document.getElementById("r2");
-	l1.style.width = n1*d2*30 + "px";
-	r1.style.width = d1*d2*30 - n1*d2*30 + "px";
-	l2.style.width = n2*d1*30 + "px";
-	r2.style.width = d1*d2*30 - n2*d1*30 + "px";
+	var num_l1 = n1*d2*30/div;
+	l1.style.width = num_l1 + "px";
+	r1.style.width = (d1*d2*30/div - n1*d2*30/div) + "px";
+	l2.style.width = n2*d1*30/div + "px";
+	r2.style.width = (d1*d2*30 - n2*d1*30)/div + "px";
+}
+
+function gcd(x, y) {
+  if (x < y) {
+	while(y) {
+		var t = y;
+		y = x % y;
+		x = t;
+	}
+	return x;
+  } else {
+	while(x) {
+		var t = x;
+		x = y % x;
+		y = t;
+	}
+	return y;
+  }
 }

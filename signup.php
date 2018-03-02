@@ -1,6 +1,6 @@
 <?php
-	
-	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');		
+	$conn_string = include_once 'config.php';
+	$conn = pg_connect($conn_string);		
 	$username = $password = $confirm_password = $email = "";
 	$username_err = $password_err = $confirm_password_err = $email_err = "";
 	

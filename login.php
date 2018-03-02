@@ -1,5 +1,6 @@
 <?php
-	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
+	$conn_string = include_once 'config.php';
+	$conn = pg_connect($conn_string);
 	$username = $password = "";
 	$username_err = $password_err = "";
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,7 +17,7 @@
 		
 		if (empty($username_err) && empty($password_err)) {
 			$param_username = $username;
-			$query = sprintf("SELECT username, pwd FROM wbproj.users WHERE username='%s';",$username);
+			$query = sprintf("SELECT username, pwd, userid FROM wbproj.users WHERE username='%s';",$username);
 			$result = pg_query($conn, $query);
 			if (pg_num_rows($result) == 1) {
 				$row = pg_fetch_row($result);
@@ -25,6 +26,7 @@
 				if ($correct_login) {
 					session_start();
 					$_SESSION["username"] = $username;
+					$_SESSION["userid"] = $row[2];
 					header('location: index.php');
 				} else {
 					$password_err = "Password invalid.";

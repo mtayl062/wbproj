@@ -1,4 +1,16 @@
 <?php
+	function gcd($a,$b) {
+    $a = abs($a); $b = abs($b);
+    if( $a < $b) list($b,$a) = Array($a,$b);
+    if( $b == 0) return $a;
+    $r = $a % $b;
+    while($r > 0) {
+        $a = $b;
+        $b = $r;
+        $r = $a % $b;
+    }
+    return $b;
+	}
 	$level = null;
 	if (isset($_POST['lvl1'])) {
 		$level = 1;
@@ -13,7 +25,8 @@
 	if (isset($_POST['qid'])) {
 		$question = intval($_POST['qid']);
 	}
-	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
+	$conn_string = include_once 'config.php';
+	$conn = pg_connect($conn_string);
 	$score = 0;
 	if (isset($_POST['score'])) {
 		$score = intval($_POST['score']);
@@ -34,16 +47,18 @@
 	$lans = null;
 	$rans = null;
 	$rans_style = null;
+	$gcd = gcd($d1,$d2);
 	if ($op == "+") {
-		$lans = $n1*$d2;
-		$rans = $n2*$d1;
+		$lans = $n1*$d2/$gcd;
+		$rans = $n2*$d1/$gcd;
 		$rans_style = "rans";
 	} else {
-		$lans = $n1*$d2-$n2*$d1;
-		$rans = $n2*$d1;
+		$lans = ($n1*$d2-$n2*$d1)/$gcd;
+		$rans = $n2*$d1/$gcd;
 		$rans_style = "rans-minus";
 	}
-	$rest = $d1*$d2 - $rans - $lans;
+	$rest = $d1*$d2/$gcd - $rans - $lans;
+
 ?>
 
 <!DOCTYPE html>
@@ -52,11 +67,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="pragma" content="no-cache" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/play.css">
 	<script src="scripts/play.js"></script>
-	<script>window.onload = function(event) {prepareCSS(<?php echo $n1.','.$d1.','.$n2.','.$d2?>)};</script>
+	<script>window.onload = function(event) {prepareCSS(<?php echo $n1.','.$d1.','.$n2.','.$d2?>);};</script>
 </head>
 
 <body>
@@ -73,7 +89,7 @@
     </section>
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
-		<span id="scoreboard" class="w3-purple" >Your score: <?php echo $score?></span>
+		<span id="scoreboard" class="w3-purple" >Level score: <?php echo $score?></span>
 		<img src="images/pet2.png" align="right"/>
 		<h2 class="w3-text-purple small_shadow"><b>Question <?php echo $question?> :  </b> <?php echo $n1.'/'.$d1?> <?php echo $op ?> <?php echo $n2.'/'.$d2?> = ?</h2>
 		<br>
@@ -105,7 +121,7 @@
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">
-        <p>&copy; Maxime Taylor</p>
+        <p id="debug">&copy; Maxime Taylor</p>
     </footer>
 
 </body>

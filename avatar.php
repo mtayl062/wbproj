@@ -1,3 +1,29 @@
+<?php
+	$conn_string = include_once 'config.php';
+	$db = pg_connect($conn_string);
+	$query = "select username, score from wbproj.users where userid='1'";
+	$result = pg_query($db, $query);
+	$row = pg_fetch_row($result);
+	$username = $row[0];
+	$score = $row[1];
+	$player_level = 1;
+	$rest_score = $score;
+	$level_max = 100;
+	if ($score > 500) {
+		$player_level = 3;
+		$rest_score = 500;
+		$level_max = 500;
+	} elseif ($score > 200) {
+		$player_level = 3;
+		$rest_score = $rest_score - 200;
+		$level_max = 500;
+	} elseif ($score > 100) {
+		$player_level = 2;
+		$rest_score = $rest_score - 100;
+		$level_max = 200;
+	}
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -29,12 +55,14 @@
                 <div id="avatar_inner">
 					<?php
 						$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
-						$query = "select * from wbproj.users where userid='1'";
+						$query = "select spriteid, bgid, petid, score from wbproj.users where userid='1'";
 						$result = pg_query($db, $query);
+						$score = null;
 						while ($row = pg_fetch_row($result)) {
-							echo '<image id="sprite" src="images/sprite'.$row[4].'.png" alt="Your sprite"/>'."\n";
-							echo '<image id="bg" src="images/bg'.$row[5].'.png" alt="Your background"/>'."\n";
-							echo '<image id="pet" src="images/pet'.$row[6].'.png" alt="Your avatar"/>'."\n";
+							echo '<image id="sprite" src="images/sprite'.$row[0].'.png" alt="Your sprite"/>'."\n";
+							echo '<image id="bg" src="images/bg'.$row[1].'.png" alt="Your background"/>'."\n";
+							echo '<image id="pet" src="images/pet'.$row[2].'.png" alt="Your avatar"/>'."\n";
+							$score = $row[3];
 						}
 					?>
                 </div>
@@ -44,11 +72,11 @@
         </div>
         <div id="level_info">
             <div class="top-bottom-space">
-                <h3 class="w3-purple">Level 1<br></h3>
+                <h3 class="w3-purple">Level <?php echo $player_level ?><br></h3>
             </div>
             <div class="top-bottom-space">
-                <meter min="0" max="100" value="70"></meter>
-                <a>70/100 XP</a>
+                <meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
+                <a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
             </div>
             <div class="top-bottom-space">
                 <p>Latest awards obtained:</p>

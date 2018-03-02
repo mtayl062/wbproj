@@ -1,4 +1,5 @@
 <?php
+	$conn_string = include_once 'config.php';
 	session_start();
 	if (!isset($_SESSION["username"]) || empty($_SESSION['username'])) {
 		header("location: index.html");
@@ -32,7 +33,7 @@
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<div>
-			<p>Hello there! "All talk and no fraction" is an interactive learning experience that's all about mastering fractions. A variety of levels will 
+			<p>Hello there, ! "All talk and no fraction" is an interactive learning experience that's all about mastering fractions. A variety of levels will 
 				guide you through mathematical operations such as summation and substraction. You'll also earn experience points, medals and cool unlockables along the way!</p>
 		</div>
 		<div>

@@ -1,10 +1,10 @@
 <?php
-	$conn = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
+	$conn_string = include_once 'config.php';
+	$conn = pg_connect($conn_string);
 	$query = "SELECT unlock FROM wbproj.users WHERE userid = '1'";
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
-	//$level_unlock = intval($row[0]);
-	$level_unlock = 3;
+	$level_unlock = intval($row[0]);
 ?>
 
 <!DOCTYPE html>
