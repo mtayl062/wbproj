@@ -12,26 +12,33 @@
 <body>
 
     <nav class="w3-bar w3-black">
-        <a href="index.html" class="w3-button w3-bar-item w3-hover-orange">Home</a>
+        <a href="index.php" class="w3-button w3-bar-item w3-hover-orange">Home</a>
         <a href="avatar.html" class="w3-button w3-bar-item w3-purple w3-hover-orange">My Avatar</a>
         <a href="levels.html" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
-        <a href="login.html" class="w3-button w3-bar-item w3-right w3-hover-orange">Login</a>
+        <a href="login.php" class="w3-button w3-bar-item w3-right w3-hover-orange">Login</a>
     </nav>
     
     <section id="main_header" class="w3-container w3-center">
         <h1 class="w3-text-purple shadow"><b>Customize My Avatar</b></h1>
     </section>
+	
+	<section>
+		<div class="w3-container w3-center">
+			<p>This content is only accessible to members of All Talk and No Fraction who are signed in.</p>
+			<p>Please click <a href="login.php">here</a> to log in. Not a member? Click <a href="register.php">here</a> to register.</p>
+		</div>
+	<section>
     
-    <section id="mainbox" class="w3-container w3-content w3-center">
+    <section id="mainbox" class="w3-container w3-content w3-center disabled">
         <div>
             <image id="bg" src="images/bg5.png" alt="Your background"/>
             <image id="sprite" src="images/sprite3.png" alt="Your avatar"/>
             <image id="pet" src="images/pet4.png" alt="Your companion"/>
         </div>
-        <p class="w3-text w3-large"><button onclick="changeImageLeft('sprite',6,5)">&lt;</button>  Avatar Color  <button onclick="changeImageRight('sprite',6,5)">&gt;</button></p>
-        <p class="w3-text w3-large"><button onclick="changeImageLeft('bg',2,5)">&lt;</button>  Background  <button onclick="changeImageRight('bg',2,5)">&gt;</button ></p>
-        <p class="w3-text w3-large"><button onclick="changeImageLeft('pet',3,4);">&lt;</button>  Companion  <button onclick="changeImageRight('pet',3,4);">&gt;</button></p>
-        <p><a href="avatar.html" class="w3-button w3-purple">OK</a></p>
+        <p class="w3-text w3-large"><button disabled onclick="changeImageLeft('sprite',6,5)">&lt;</button>  Avatar Color  <button onclick="changeImageRight('sprite',6,5)">&gt;</button></p>
+        <p class="w3-text w3-large"><button disabled onclick="changeImageLeft('bg',2,5)">&lt;</button>  Background  <button onclick="changeImageRight('bg',2,5)">&gt;</button ></p>
+        <p class="w3-text w3-large"><button disabled onclick="changeImageLeft('pet',3,4);">&lt;</button>  Companion  <button onclick="changeImageRight('pet',3,4);">&gt;</button></p>
+        <p><a href="/" onclick="return false;" class="w3-button w3-purple">OK</a></p>
     </section>
     
     <footer class="w3-center w3-black w3-padding-16">

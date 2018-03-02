@@ -49,3 +49,7 @@ h1 {
 div {
 	font-size: 18px;
 }
+
+.disabled {
+	opacity: 0.5;
+}

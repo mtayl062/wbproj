@@ -52,10 +52,10 @@
 <body>
 
     <nav class="w3-bar w3-black">
-        <a href="index.html" class="w3-button w3-bar-item w3-hover-orange">Home</a>
+        <a href="index.php" class="w3-button w3-bar-item w3-hover-orange">Home</a>
         <a href="avatar.html" class="w3-button w3-bar-item w3-hover-orange">My Avatar</a>
         <a href="levels.html" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
-        <a href="login.html" class="w3-button w3-bar-item w3-right w3-hover-orange w3-purple">Login</a>
+        <a href="login.php" class="w3-button w3-bar-item w3-right w3-hover-orange w3-purple">Login</a>
     </nav>
 	
 	<section id="main_header" class="w3-container w3-center">
@@ -73,7 +73,7 @@
 				<span class="help-block"><?php echo $password_err; ?></span></div>
 			<div><input type="submit" class="input_margin w3-button w3-purple">
 				</div>
-			<div class="input_margin">Not a member? Click <a href="signup.html">here</a> to sign up.</div>
+			<div class="input_margin">Not a member? Click <a href="signup.php">here</a> to sign up.</div>
 		</form>
 	</section>
 	

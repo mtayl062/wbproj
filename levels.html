@@ -12,21 +12,28 @@
 <body>
 
     <nav class="w3-bar w3-black">
-        <a href="index.html" class="w3-button w3-bar-item w3-purple w3-hover-orange">Home</a>
+        <a href="index.php" class="w3-button w3-bar-item w3-purple w3-hover-orange">Home</a>
         <a href="avatar.html" class="w3-button w3-bar-item w3-hover-orange">My Avatar</a>
         <a href="levels.html" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
-        <a href="login.html" class="w3-button w3-bar-item w3-right w3-hover-orange">Login</a>
+        <a href="login.php" class="w3-button w3-bar-item w3-right w3-hover-orange">Login</a>
     </nav>
 	
 	<section id="main_header" class="w3-container w3-center">
       <h1 class="w3-text-purple shadow"><b>Level Selection</b></h1>
     </section>
 	
-	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
-		<div><a href="play.html"><img id = "lvlbutton" src="images/level1.png" alt="Level 1"></a></div>
-		<div><a href="play.html"><img id = "lvlbutton" src="images/level2.png" alt="Level 2"></a></div>
-		<div><a href="play.html"><img id = "lvlbutton" class="locked" src="images/level3.png" alt="Level 3" title="Locked"/></a></div>
-		<div><a href="play.html"><img id = "lvlbutton" class="locked" src="images/level4.png" alt="Level 4" title="Locked"/></a></div>
+	<section>
+		<div class="w3-container w3-center">
+			<p>This content is only accessible to members of All Talk and No Fraction who are signed in.</p>
+			<p>Please click <a href="login.php">here</a> to log in. Not a member? Click <a href="register.php">here</a> to register.</p>
+		</div>
+	<section>
+	
+	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large disabled">
+		<div><a href="/" onclick = "return false;"><img id = "lvlbutton" src="images/level1.png" alt="Level 1"></a></div>
+		<div><a href="/" onclick = "return false;"><img id = "lvlbutton" src="images/level2.png" alt="Level 2"></a></div>
+		<div><a href="/" onclick = "return false;"><img id = "lvlbutton" class="locked" src="images/level3.png" alt="Level 3" title="Locked"/></a></div>
+		<div><a href="/" onclick = "return false;"><img id = "lvlbutton" class="locked" src="images/level4.png" alt="Level 4" title="Locked"/></a></div>
 	</section>
 	
 	<footer class="w3-center w3-black w3-padding-16">
