@@ -1,7 +1,15 @@
 <?php
 	$conn_string = include_once 'config.php';
+	session_start();
+	$userid = null;
+	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
+		header("location: levels.html");
+		exit;
+	} else {
+		$userid = $_SESSION["userid"];
+	}
 	$conn = pg_connect($conn_string);
-	$query = "SELECT unlock FROM wbproj.users WHERE userid = '1'";
+	$query = sprintf("SELECT unlock FROM wbproj.users WHERE userid = '%s'",$userid);
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
 	$level_unlock = intval($row[0]);

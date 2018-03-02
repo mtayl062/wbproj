@@ -1,3 +1,14 @@
+<?php
+	session_start();
+	$userid = null;
+	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
+		header("location: customize.html");
+		exit;
+	} else {
+		$userid = $_SESSION["userid"];
+	}
+?>
+
 <html>
 
 <head>
@@ -27,17 +38,17 @@
             <?php
 				$conn_string = include_once 'config.php';
 				$db = pg_connect($conn_string);
-				$query = "select * from wbproj.users LIMIT 1";
+				$query = sprintf("select spriteid, bgid, petid from wbproj.users where userid='%s';", $userid);
 				$result = pg_query($db, $query);
 				while ($row = pg_fetch_row($result)) {
-					echo '<image id="sprite" src="images/sprite'.$row[4].'.png" alt="Your sprite"/>'."\n";
-					echo '<image id="bg" src="images/bg'.$row[5].'.png" alt="Your background"/>'."\n";
-					echo '<image id="pet" src="images/pet'.$row[6].'.png" alt="Your avatar"/>'."\n";
+					echo '<image id="sprite" src="images/sprite'.$row[0].'.png" alt="Your sprite"/>'."\n";
+					echo '<image id="bg" src="images/bg'.$row[1].'.png" alt="Your background"/>'."\n";
+					echo '<image id="pet" src="images/pet'.$row[2].'.png" alt="Your avatar"/>'."\n";
 					echo '</div>'."\n";
 					echo '<p class="top-bottom-space"><form method="POST" action="/update_avatar.php" id="avatarForm">';
-					echo '<input type="hidden" id="sprite_choice" name="sprite_choice" value="'.$row[4].'"/>';
-					echo '<input type="hidden" id="bg_choice" name="bg_choice" value="'.$row[5].'"/>';
-					echo '<input type="hidden" id="pet_choice" name="pet_choice" value="'.$row[6].'"/>';
+					echo '<input type="hidden" id="sprite_choice" name="sprite_choice" value="'.$row[0].'"/>';
+					echo '<input type="hidden" id="bg_choice" name="bg_choice" value="'.$row[1].'"/>';
+					echo '<input type="hidden" id="pet_choice" name="pet_choice" value="'.$row[2].'"/>';
 					echo '<input id="submission" type="submit" value="Submit Changes" class="w3-button w3-purple">';
 					echo '</form></p>'."\n";
 				}

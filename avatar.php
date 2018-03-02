@@ -1,26 +1,39 @@
 <?php
+	session_start();
+	$userid = null;
+	$username = null;
+	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
+		header("location: avatar.html");
+		exit;
+	} else {
+		$userid = $_SESSION["userid"];
+		$username = $_SESSION["username"];
+	}
 	$conn_string = include_once 'config.php';
 	$db = pg_connect($conn_string);
-	$query = "select username, score from wbproj.users where userid='1'";
+	$query = sprintf("select score from wbproj.users where userid='%s'",$userid);
 	$result = pg_query($db, $query);
 	$row = pg_fetch_row($result);
-	$username = $row[0];
-	$score = $row[1];
+	$score = $row[0];
 	$player_level = 1;
 	$rest_score = $score;
 	$level_max = 100;
+	$level_name = "Novice";
 	if ($score > 500) {
 		$player_level = 3;
 		$rest_score = 500;
 		$level_max = 500;
+		$level_name = "Expert";
 	} elseif ($score > 200) {
 		$player_level = 3;
 		$rest_score = $rest_score - 200;
 		$level_max = 500;
+		$level_name = "Adept";
 	} elseif ($score > 100) {
 		$player_level = 2;
 		$rest_score = $rest_score - 100;
 		$level_max = 200;
+		$level_name = "Apprentice";
 	}
 ?>
 
@@ -55,7 +68,7 @@
                 <div id="avatar_inner">
 					<?php
 						$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
-						$query = "select spriteid, bgid, petid, score from wbproj.users where userid='1'";
+						$query = sprintf("select spriteid, bgid, petid, score from wbproj.users where userid='%s'",$userid);
 						$result = pg_query($db, $query);
 						$score = null;
 						while ($row = pg_fetch_row($result)) {
@@ -72,10 +85,10 @@
         </div>
         <div id="level_info">
             <div class="top-bottom-space">
-                <h3 class="w3-purple">Level <?php echo $player_level ?><br></h3>
+                <h3 class="w3-purple">Fractions Mastery: <?php echo $level_name ?><br></h3>
             </div>
             <div class="top-bottom-space">
-                <meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
+				<meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
                 <a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
             </div>
             <div class="top-bottom-space">

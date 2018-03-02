@@ -1,5 +1,14 @@
 <?php
 	session_start();
+	$userid = null;
+	$username = null;
+	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
+		header("location: index.html");
+		exit;
+	} else {
+		$userid = $_SESSION["userid"];
+		$username = $_SESSION["username"];
+	}
 	$_SESSION = array();
 	session_destroy();
 ?>
@@ -25,7 +34,7 @@
     </nav>
 	
 	<section id="main_header" class="w3-container w3-center">
-      <h1 class="w3-text-purple shadow"><b>Goodbye, friend!</b></h1>
+      <h1 class="w3-text-purple shadow"><b>Goodbye, <?php echo $username?>!</b></h1>
     </section>
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">

@@ -111,7 +111,7 @@
 			</ul>
 		<div>
 		<div>
-			<form method="POST" action="<?php if ($question == 4) {echo 'levelComplete.php';} else {echo 'play.php';}?>">
+			<form method="POST" action="<?php if ($question == 4) {echo 'level_complete.php';} else {echo 'play.php';}?>">
 				<input type="hidden" name="lvl<?php echo $level?>" value="lvl<?php echo $level?>">
 				<input type="hidden" name="qid" value="<?php echo($question + 1)?>">
 				<input type="hidden" name="score" id="score" value="<?php echo($score)?>">

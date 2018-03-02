@@ -1,0 +1,106 @@
+<?php
+	session_start();
+	$userid = null;
+	$username = null;
+	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
+		header("location: avatar.html");
+		exit;
+	} else {
+		$userid = $_SESSION["userid"];
+		$username = $_SESSION["username"];
+	}
+	$level = null;
+	if (isset($_POST['lvl1'])) {
+		$level = 1;
+	} elseif (isset($_POST['lvl2'])) {
+		$level = 2;
+	} elseif (isset($_POST['lvl3'])) {
+		$level = 3;
+	} elseif (isset($_POST['lvl4'])) {
+		$level = 4;
+	}
+	$unlock = ($level < 4) ? ($level + 1) : $level;
+	$add_score = 0;
+	if (isset($_POST['score'])) {
+		$add_score = intval($_POST['score']);
+	}
+	$conn_string = include_once 'config.php';
+	$conn = pg_connect($conn_string);
+	$query = sprintf("select score from wbproj.users WHERE userid='%s';",$userid);
+	$result = pg_query($conn, $query);
+	$row = pg_fetch_row($result);
+	$old_score = $row[0];
+	$new_score = $old_score + $add_score;
+	$query = sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid);
+	pg_query($conn, $query);
+	$query = sprintf("update wbproj.users set unlock='%d' where userid='%s';",$unlock,$userid);
+	pg_query($conn, $query);
+	
+	$player_level = 1;
+	$rest_score = $new_score;
+	$level_max = 100;
+	if ($new_score > 500) {
+		$player_level = 3;
+		$rest_score = 500;
+		$level_max = 500;
+	} elseif ($new_score > 200) {
+		$player_level = 3;
+		$rest_score = $rest_score - 200;
+		$level_max = 500;
+	} elseif ($new_score > 100) {
+		$player_level = 2;
+		$rest_score = $rest_score - 100;
+		$level_max = 200;
+	}
+	$level_name = "Novice";
+	if ($player_level == 2) {
+		$level_name = "Apprentice";
+	} elseif ($player_level == 3) {
+		$level_name = "Adept";
+	}
+	$_POST = array();
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="pragma" content="no-cache" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+	<link rel="stylesheet" href="style/main.css">
+	<link rel="stylesheet" href="style/play.css">
+	<script src="scripts/play.js"></script>
+</head>
+
+<body>
+
+    <nav class="w3-bar w3-black">
+        <a href="index.php" class="w3-button w3-bar-item w3-purple w3-hover-orange">Home</a>
+        <a href="avatar.php" class="w3-button w3-bar-item w3-hover-orange">My Avatar</a>
+        <a href="levels.php" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
+        <a href="logout.php" class="w3-button w3-bar-item w3-right w3-hover-orange">Logout</a>
+    </nav>
+	
+	<section id="main_header" class="w3-container w3-center">
+      <h1 class="w3-text-purple shadow"><b>Level <?php echo $level?></b></h1>
+    </section>
+	
+	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
+		<div>
+			<p class="w3-center w3-purple">Congratulations! You have completed Level <?php echo $level ?> and obtained <?php echo $add_score?>XP.</p>
+			<image src="/images/sprite2.png" alt="A sprite."/><br>
+			<p class="w3-purple w3-padding-medium">Fractions Mastery: <?php echo $level_name ?></p>
+			<span>Your progess: </span>	
+			<meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
+			<a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
+			<p><a class="w3-button w3-purple" href="levels.php">Return to Level Select</a></p>
+	</section>
+	
+	<footer class="w3-center w3-black w3-padding-16">
+        <p id="debug">&copy; Maxime Taylor</p>
+    </footer>
+
+</body>
+</html>
