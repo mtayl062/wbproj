@@ -19,22 +19,47 @@
 	} elseif (isset($_POST['lvl4'])) {
 		$level = 4;
 	}
-	$unlock = ($level < 4) ? ($level + 1) : $level;
+	$question_value = 10;
 	$add_score = 0;
+	$unlock = $level;
 	if (isset($_POST['score'])) {
 		$add_score = intval($_POST['score']);
+		if ($_POST['score'] >= 3*$question_value) {
+			$unlock = ($level < 4) ? ($level + 1) : $level;
+		}
 	}
+
 	$conn_string = include_once 'config.php';
 	$conn = pg_connect($conn_string);
-	$query = sprintf("select score from wbproj.users WHERE userid='%s';",$userid);
+	$query = sprintf("select score,unlock from wbproj.users WHERE userid='%s';",$userid);
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
 	$old_score = $row[0];
+	$old_unlock = $row[1];
 	$new_score = $old_score + $add_score;
 	$query = sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid);
 	pg_query($conn, $query);
-	$query = sprintf("update wbproj.users set unlock='%d' where userid='%s';",$unlock,$userid);
-	pg_query($conn, $query);
+	if ($unlock > $old_unlock) {
+		$query = sprintf("update wbproj.users set unlock='%d' where userid='%s';",$unlock,$userid);
+		pg_query($conn, $query);
+	}
+	
+	$score_string = null;
+	$success_string = null;
+	if ($add_score > 0) {
+		$score_string = "Well done, you have earned ".$add_score." XP.";
+		$success_string = "Congratulations!";
+	} else {
+		$score_string = "You have not earned any XP.";
+		$success_string = "Try again, you can do better!";
+	}
+	if ($unlock > $level && $old_unlock < $unlock) {
+		$success_string = "Congratulations! You have unlocked level ".$unlock."!";
+	} elseif ($level != 4 && $old_unlock == $unlock) {
+		$q_missing = 3 - $add_score/$question_value;
+		$plural = ($q_missing != 1) ? "s" : "";
+		$success_string = "You need to answer ".$q_missing." more question".$plural." correctly to unlock level ".($unlock+1).".";
+	}
 	
 	$player_level = 1;
 	$rest_score = $new_score;
@@ -89,7 +114,7 @@
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<div>
-			<p class="w3-center w3-purple">Congratulations! You have completed Level <?php echo $level ?> and obtained <?php echo $add_score?>XP.</p>
+			<p class="w3-center w3-purple"><?php echo $score_string ?><br><?php echo $success_string?></p>
 			<image src="/images/sprite2.png" alt="A sprite."/><br>
 			<p class="w3-purple w3-padding-medium">Fractions Mastery: <?php echo $level_name ?></p>
 			<span>Your progess: </span>	
