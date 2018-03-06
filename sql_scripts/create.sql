@@ -1,6 +1,6 @@
 DROP SCHEMA IF EXISTS wbproj;
 
-CREATE SCHEMA webproj;
+CREATE SCHEMA wbproj;
 
 DROP TABLE IF EXISTS wbproj.users;
 
