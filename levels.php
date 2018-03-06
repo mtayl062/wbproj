@@ -47,13 +47,13 @@
 			<div name="lvl3" <?php if ($level_unlock < 3) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl3" value="lvl3" src="images/level3.png" alt="Level 3" title="Locked"/></div>
 			<div name="lvl4" <?php if ($level_unlock < 4) {echo 'class="locked" ';} ?>><input type= "image" id = "lvlbutton" name="lvl4" value="lvl4" src="images/level4.png" alt="Level 4" title="Locked"/></div>
 		</form>
-		<form action="#" method="POST" class="top-bottom-space">
+		<form action="/play.php" method="POST" class="top-bottom-space">
 			<h3 class="w3-purple">TIME CHALLENGE</h3>
 			<p>Obtain bonus XP for a level by completing the time challenge!</p>
 			<input type="image" <?php if ($level_unlock < 2) {echo 'class="locked"';}?> id="timebutton" name="lvl1challenge" value="lvl1challenge" src="images/time1.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock < 3) {echo 'class="locked"';}?> id="timebutton" name="lvl1challenge" value="lvl1challenge" src="images/time2.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock < 4) {echo 'class="locked"';}?> id="timebutton" name="lvl1challenge" value="lvl1challenge" src="images/time3.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock == 4) {echo 'class="locked"';}?> id="timebutton" name="lvl1challenge" value="lvl1challenge" src="images/time4.png" alt="Level 1 Time Challenge">
+			<input type="image" <?php if ($level_unlock < 3) {echo 'class="locked"';}?> id="timebutton" name="lvl2challenge" value="lvl2challenge" src="images/time2.png" alt="Level 1 Time Challenge">
+			<input type="image" <?php if ($level_unlock < 4) {echo 'class="locked"';}?> id="timebutton" name="lvl3challenge" value="lvl3challenge" src="images/time3.png" alt="Level 1 Time Challenge">
+			<input type="image" <?php if ($level_unlock == 4) {echo 'class="locked"';}?> id="timebutton" name="lvl4challenge" value="lvl4challenge" src="images/time4.png" alt="Level 1 Time Challenge">
 			<p id="note">You must complete a level in normal play before the time challenge is unlocked.</p>
 		</form>
 	</section>

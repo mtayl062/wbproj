@@ -12,6 +12,7 @@
     return $b;
 	}
 	$level = null;
+	$challenge = false;
 	if (isset($_POST['lvl1'])) {
 		$level = 1;
 	} elseif (isset($_POST['lvl2'])) {
@@ -20,6 +21,18 @@
 		$level = 3;
 	} elseif (isset($_POST['lvl4'])) {
 		$level = 4;
+	} elseif (isset($_POST['lvl1challenge'])) {
+		$level = 1;
+		$challenge = true;
+	} elseif (isset($_POST['lvl2challenge'])) {
+		$level = 2;
+		$challenge = true;
+	} elseif (isset($_POST['lvl3challenge'])) {
+		$level = 3;
+		$challenge = true;
+	} elseif (isset($_POST['lvl4challenge'])) {
+		$level = 4;
+		$challenge = true;
 	}
 	$question = 1;
 	if (isset($_POST['qid'])) {
@@ -64,6 +77,20 @@
 		$rans_style = "rans-minus";
 	}
 	$rest = $d1*$d2/$gcd - $rans - $lans;
+	
+	$time = null;
+	if ($level == 1) {
+		$time = 15;
+	} elseif ($level == 2) {
+		$time = 30;
+	} elseif ($level == 3) {
+		$time = 35;
+	} elseif ($level == 4) {
+		$time = 40;
+	}
+	if (isset($_POST['time'])) {
+		$time = intval($_POST['time']);
+	}
 
 ?>
 
@@ -78,7 +105,7 @@
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/play.css">
 	<script src="scripts/play.js"></script>
-	<script>window.onload = function(event) {prepareCSS(<?php echo $n1.','.$d1.','.$n2.','.$d2?>);};</script>
+	<script>window.onload = function(event) {prepareCSS(<?php echo $n1.','.$d1.','.$n2.','.$d2.','.$challenge?>);};</script>
 </head>
 
 <body>
@@ -95,7 +122,8 @@
     </section>
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
-		<span id="scoreboard" class="w3-purple" >Level score: <?php echo $score?></span>
+		<span class="scoreboard w3-purple" >LEVEL SCORE: <?php echo $score?></span>
+		<?php if ($challenge) {echo '<span id="timebox" class="scoreboard w3-purple" >LEVEL TIME: '.$time.' s</span>';}?>
 		<img src="images/pet2.png" align="right"/>
 		<h2 class="w3-text-purple small_shadow"><b>Question <?php echo $question?> :  </b> <?php echo $n1_og.'/'.$d1_og?> <?php echo $op ?> <?php echo $n2_og.'/'.$d2_og?> = ?</h2>
 		<br>
@@ -118,9 +146,10 @@
 		<div>
 		<div>
 			<form method="POST" action="<?php if ($question == 4) {echo 'level_complete.php';} else {echo 'play.php';}?>">
-				<input type="hidden" name="lvl<?php echo $level?>" value="lvl<?php echo $level?>">
+				<input type="hidden" name="lvl<?php if ($challenge) {echo $level."challenge";} else {echo $level;}?>" value="lvl<?php if ($challenge) {echo $level."challenge";} else {echo $level;}?>">
 				<input type="hidden" name="qid" value="<?php echo($question + 1)?>">
 				<input type="hidden" name="score" id="score" value="<?php echo($score)?>">
+				<?php if ($challenge) {echo '<input type="hidden" name="time" id="time" value="'.$time.'">';}?>
 				<input type="submit" name="next" id="next" value="Next">
 			</form>
 		<div>

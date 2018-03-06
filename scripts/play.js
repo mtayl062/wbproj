@@ -1,7 +1,27 @@
 var done = true;
 
+var f;
+
+function countdown() {
+	var timebox = document.getElementById("timebox");
+	var timeInput = document.getElementById("time");
+	f = setInterval(function() {
+		var time = timeInput.value;
+		if (time > 0) {
+			time = time - 1;
+			timebox.innerHTML = "LEVEL TIME: " + time + " s";
+			timeInput.value = time;
+		} else {
+			clearInterval(f);
+			timebox.innerHTML = "LEVEL TIME: 0 s";
+			timeInput.value = 0;
+		}
+	}, 1000);
+}
+
 function showAnswer(id,ans) {
 	if (done == true) {
+		clearInterval(f);
 		var correct = ans.toUpperCase();
 		var elem = document.getElementById("answer");
 		var text = document.getElementById("answer_text");
@@ -21,7 +41,10 @@ function showAnswer(id,ans) {
 	}
 }
 
-function prepareCSS(n1,d1,n2,d2) {
+function prepareCSS(n1,d1,n2,d2,b) {
+	if (b) {
+		countdown();
+	}
 	var boxes = d1*d2;
 	var div = gcd(d1,d2);
 	var l1 = document.getElementById("l1");

@@ -10,6 +10,8 @@
 		$username = $_SESSION["username"];
 	}
 	$level = null;
+	$challenge = false;
+	$multiplier = 0;
 	if (isset($_POST['lvl1'])) {
 		$level = 1;
 	} elseif (isset($_POST['lvl2'])) {
@@ -18,6 +20,22 @@
 		$level = 3;
 	} elseif (isset($_POST['lvl4'])) {
 		$level = 4;
+	} elseif (isset($_POST['lvl1challenge'])) {
+		$level = 1;
+		$challenge = true;
+		$multiplier = 0.2;
+	} elseif (isset($_POST['lvl2challenge'])) {
+		$level = 2;
+		$challenge = true;
+		$multiplier = 0.4;
+	} elseif (isset($_POST['lvl3challenge'])) {
+		$level = 3;
+		$challenge = true;
+		$multiplier = 0.4;
+	} elseif (isset($_POST['lvl4challenge'])) {
+		$level = 4;
+		$challenge = true;
+		$multiplier = 0.8;
 	}
 	$question_value = 10;
 	$add_score = 0;
@@ -29,6 +47,10 @@
 		}
 	}
 	$_SESSION["score"] = (string)((intval($_SESSION["score"])) + $add_score);
+	$time = null;
+	if (isset($_POST['time'])) {
+		$time = intval($_POST['time']);
+	}
 
 	$conn_string = include_once 'config.php';
 	$conn = pg_connect($conn_string);
@@ -38,6 +60,11 @@
 	$old_score = $row[0];
 	$old_unlock = $row[1];
 	$new_score = $old_score + $add_score;
+	if ($challenge) {
+		if ($time > 0) {
+			$new_score += $add_score*$multiplier;
+		}
+	}
 	$query = sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid);
 	pg_query($conn, $query);
 	if ($unlock > $old_unlock) {
@@ -49,6 +76,11 @@
 	$success_string = null;
 	if ($add_score > 0) {
 		$score_string = "Well done, you have earned ".$add_score." XP.";
+		if ($challenge) {
+			if ($time > 0) {
+				$score_string = $score_string."<br>You also earned a bonus ".($add_score*$multiplier)." XP for completing the time challenge in ".$time." s.";
+			}
+		}
 		$success_string = "Congratulations!";
 	} else {
 		$score_string = "You have not earned any XP.";
@@ -95,7 +127,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="pragma" content="no-cache" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 	<link rel="stylesheet" href="style/main.css">
 	<link rel="stylesheet" href="style/play.css">
@@ -117,7 +148,7 @@
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<div>
-			<p class="w3-center w3-purple"><?php echo $score_string ?><br><?php echo $success_string?></p>
+			<p class="w3-center w3-purple w3-padding-medium"><?php echo $score_string ?><br><?php echo $success_string?></p>
 			<image src="/images/sprite2.png" alt="A sprite."/><br>
 			<p class="w3-purple w3-padding-medium">Fractions Mastery: <?php echo $level_name ?></p>
 			<span>Your progress: </span>	
