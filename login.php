@@ -65,15 +65,17 @@
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-			<img src="images/pet4.png" class="cute_img" alt="One of the game's pets"/>
+			<div class="top-bottom-space">
+				<img src="images/title.png" alt="ALL TALK AND NO FRACTION"/><br>
+			</div>
 			<div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
-				<input type="text" class="input_margin form-control" placeholder="username" name="username" value="<?php echo $username; ?>">
+				<input type="text" class="input_margin form-control" placeholder="username" name="username" value="<?php echo $username; ?>" autofocus>
 				<span class="help-block"><?php echo $username_err; ?></span></div>
 			<div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
 				<input type="password" class="input_margin form-control" placeholder="password" name="password">
 				<span class="help-block"><?php echo $password_err; ?></span></div>
-			<div><input type="submit" class="input_margin w3-button w3-purple">
-				</div>
+			<div><input type="submit" class="input_margin w3-button w3-purple"></div>
+			<img src="images/pet4.png" class="cute_img" alt="One of the game's pets"/>
 			<div class="input_margin">Not a member? Click <a href="signup.php">here</a> to sign up.</div>
 		</form>
 	</section>
