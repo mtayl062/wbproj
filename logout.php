@@ -2,12 +2,14 @@
 	session_start();
 	$userid = null;
 	$username = null;
+	$score = null;
 	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
 		header("location: index.html");
 		exit;
 	} else {
 		$userid = $_SESSION["userid"];
 		$username = $_SESSION["username"];
+		$score = $_SESSION["score"];
 	}
 	$_SESSION = array();
 	session_destroy();
@@ -39,13 +41,15 @@
 	
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<div class="top-bottom-space">
+			<img src="images/title.png" alt="ALL TALK AND NO FRACTION"/>
 			<p>Logout successful.<p>
 			<p>Thank you for playing All Talk and No Fraction!</p>
+			<p>You have earned <?php echo $score?> XP during this session.</p>
 		</div>
 		<div class="top-bottom-space">
-			<img src="images/pet1.png" alt="One of the game's pets" id="pet-banner"/>
-			<img src="images/pet2.png" alt="One of the game's pets" id="pet-banner"/>
 			<img src="images/pet3.png" alt="One of the game's pets" id="pet-banner"/>
+			<img src="images/pet2.png" alt="One of the game's pets" id="pet-banner"/>
+			<img src="images/pet1.png" alt="One of the game's pets" id="pet-banner"/>
 			<img src="images/pet4.png" alt="One of the game's pets" id="pet-banner"/>
 		</div>
 		<div class="top-bottom-space"><p>Not done yet? Click <a href="login.php">here</a> if you'd like to log in again.</p></div>

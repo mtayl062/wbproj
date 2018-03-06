@@ -27,6 +27,7 @@
 					session_start();
 					$_SESSION["username"] = $username;
 					$_SESSION["userid"] = $row[2];
+					$_SESSION["score"] = "0";
 					header('location: index.php');
 				} else {
 					$password_err = "Password invalid.";

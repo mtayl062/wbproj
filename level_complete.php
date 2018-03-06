@@ -28,6 +28,7 @@
 			$unlock = ($level < 5) ? ($level + 1) : $level;
 		}
 	}
+	$_SESSION["score"] = (string)((intval($_SESSION["score"])) + $add_score);
 
 	$conn_string = include_once 'config.php';
 	$conn = pg_connect($conn_string);
@@ -76,6 +77,8 @@
 		$player_level = 2;
 		$rest_score = $rest_score - 100;
 		$level_max = 200;
+	} else {
+		$rest_score = 100 - $rest_score;
 	}
 	$level_name = "Novice";
 	if ($player_level == 2) {
@@ -117,7 +120,7 @@
 			<p class="w3-center w3-purple"><?php echo $score_string ?><br><?php echo $success_string?></p>
 			<image src="/images/sprite2.png" alt="A sprite."/><br>
 			<p class="w3-purple w3-padding-medium">Fractions Mastery: <?php echo $level_name ?></p>
-			<span>Your progess: </span>	
+			<span>Your progress: </span>	
 			<meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
 			<a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
 			<p><a class="w3-button w3-purple" href="levels.php">Return to Level Select</a></p>
