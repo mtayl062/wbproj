@@ -17,6 +17,7 @@ CREATE TABLE wbproj.users (
 );
 
 INSERT INTO wbproj.users(username, email, pwd, spriteid, bgid, petid, score,unlock) VALUES ('admin','admin@gmail.com','admin3540',1,1,3,120,4);
+INSERT INTO wbproj.users(username, email, pwd) VALUES ('testing','testing@gmail.com','$2y$10$KGoGhPIzaod5OfLIFXzbJeY0sVDXT3sWEgrO0ttww8OYXN4L/C17a');
 
 DROP TABLE IF EXISTS wbproj.questions;
 
