@@ -85,8 +85,8 @@
 
     <nav class="w3-bar w3-black">
         <a href="index.php" class="w3-button w3-bar-item w3-purple w3-hover-orange">Home</a>
-        <a href="avatar.html" class="w3-button w3-bar-item w3-hover-orange">My Avatar</a>
-        <a href="levels.html" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
+        <a href="avatar.php" class="w3-button w3-bar-item w3-hover-orange">My Avatar</a>
+        <a href="levels.php" class="w3-button w3-bar-item w3-hover-orange">Levels</a>
         <a href="logout.php" class="w3-button w3-bar-item w3-right w3-hover-orange">Logout</a>
     </nav>
 	

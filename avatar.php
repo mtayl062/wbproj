@@ -11,29 +11,34 @@
 	}
 	$conn_string = include_once 'config.php';
 	$db = pg_connect($conn_string);
-	$query = sprintf("select score from wbproj.users where userid='%s'",$userid);
+	$query = sprintf("select score, unlock from wbproj.users where userid='%s'",$userid);
 	$result = pg_query($db, $query);
 	$row = pg_fetch_row($result);
 	$score = $row[0];
+	$unlock = $row[1];
 	$player_level = 1;
 	$rest_score = $score;
 	$level_max = 100;
 	$level_name = "Novice";
+	$progress_string = "You only need <strong>".($level_max - $rest_score)."</strong> more XP to <br>reach Mastery Level: Apprentice.";
 	if ($score > 500) {
 		$player_level = 3;
 		$rest_score = 500;
 		$level_max = 500;
 		$level_name = "Expert";
+		$progress_string = "You have reached the maximum amount of XP. <br>You are truly a master of fractions.";
 	} elseif ($score > 200) {
 		$player_level = 3;
 		$rest_score = $rest_score - 200;
 		$level_max = 500;
 		$level_name = "Adept";
+		$progress_string = "You only need <strong>".($level_max - $rest_score)."</strong> more XP <br>to reach Mastery Level: Expert.";
 	} elseif ($score > 100) {
 		$player_level = 2;
 		$rest_score = $rest_score - 100;
 		$level_max = 200;
 		$level_name = "Apprentice";
+		$progress_string = "You only need <strong>".($level_max - $rest_score)."</strong> more XP <br>to reach Mastery Level: Adept.";
 	}
 ?>
 
@@ -92,14 +97,8 @@
                 <a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
             </div>
             <div class="top-bottom-space">
-                <p>Latest awards obtained:</p>
-                <table>
-                    <tr>
-                        <th><image src="images/medal1.png" alt="Medal 1" title="Completed World 1.1!"/></th>
-                        <th><image src="images/medal2.png" alt="Medal 2" title="Completed a level with no mistakes!"/></th>
-                        <th><image src="images/medal3.png" alt="Medal 3" title="Completed World 1.2!"/></th>
-                    </tr>
-                </table>
+                <p>Last level unlocked: <?php echo $unlock?></p>
+                <p><?php echo $progress_string?></p>
             </div>
         </div>
     </section>
