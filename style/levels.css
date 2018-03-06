@@ -26,4 +26,13 @@ div {
 #timebutton {
 	height:72px;
 	width:72px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#note {
+	font-size: 14px;
 }
