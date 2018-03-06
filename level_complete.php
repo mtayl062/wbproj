@@ -25,7 +25,7 @@
 	if (isset($_POST['score'])) {
 		$add_score = intval($_POST['score']);
 		if ($_POST['score'] >= 3*$question_value) {
-			$unlock = ($level < 4) ? ($level + 1) : $level;
+			$unlock = ($level < 5) ? ($level + 1) : $level;
 		}
 	}
 
@@ -53,7 +53,7 @@
 		$score_string = "You have not earned any XP.";
 		$success_string = "Try again, you can do better!";
 	}
-	if ($unlock > $level && $old_unlock < $unlock) {
+	if ($unlock > $level && $old_unlock < $unlock && $unlock < 5) {
 		$success_string = "Congratulations! You have unlocked level ".$unlock."!";
 	} elseif ($level != 4 && $old_unlock == $unlock) {
 		$q_missing = 3 - $add_score/$question_value;
