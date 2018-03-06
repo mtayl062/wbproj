@@ -13,6 +13,8 @@ For the tester's convenience, two users are created along with the database:
 * (Username: newuser, password: newuser) has a score of 0 and initially has access only to level 1. This is the same level of access the tester will receive if he or she creates a new account.
 Please feel free to create a new account if you prefer. Note that running the "create.sql" script while testing will erase all users except the two above, which it will reset instead.
 
+All images were created by me using the web application https://make8bitart.com/ , except for background images for which I've been told no references are required.
+
 ## Technologies chosen (as of Thursday March 1st, 2018):
 * HTML and CSS
 * Javascript for client-side scripting
