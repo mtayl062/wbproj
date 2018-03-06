@@ -34,10 +34,16 @@
 	$query = sprintf("select n1, d1, n2, d2, a, b, c, d, answer, op from wbproj.questions WHERE lid = '%d' AND qid = '%d'",$level,$question);
 	$result = pg_query($conn, $query);
 	$row = pg_fetch_row($result);
-	$n1 = $row[0];
-	$d1 = $row[1];
-	$n2 = $row[2];
-	$d2 = $row[3];
+	$n1_og = $row[0];
+	$d1_og = $row[1];
+	$gcd1 = gcd($n1_og,$d1_og);
+	$n1 = $n1_og / $gcd1;
+	$d1 = $d1_og / $gcd1;
+	$n2_og = $row[2];
+	$d2_og = $row[3];
+	$gcd2 = gcd($n2_og,$d2_og);
+	$n2 = $n2_og / $gcd2;
+	$d2 = $d2_og / $gcd2;
 	$a_choice = $row[4];
 	$b_choice = $row[5];
 	$c_choice = $row[6];
@@ -91,7 +97,7 @@
 	<section id="mainbox" class="w3-container w3-content w3-center w3-padding-large">
 		<span id="scoreboard" class="w3-purple" >Level score: <?php echo $score?></span>
 		<img src="images/pet2.png" align="right"/>
-		<h2 class="w3-text-purple small_shadow"><b>Question <?php echo $question?> :  </b> <?php echo $n1.'/'.$d1?> <?php echo $op ?> <?php echo $n2.'/'.$d2?> = ?</h2>
+		<h2 class="w3-text-purple small_shadow"><b>Question <?php echo $question?> :  </b> <?php echo $n1_og.'/'.$d1_og?> <?php echo $op ?> <?php echo $n2_og.'/'.$d2_og?> = ?</h2>
 		<br>
 		<ul>
 			<li class="rect" id="l1"></li><li class="rect" id="r1"></li><span id="op"> <?php echo $op ?> </span>
