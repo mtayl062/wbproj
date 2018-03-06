@@ -16,8 +16,8 @@ CREATE TABLE wbproj.users (
 	unlock INT DEFAULT 1
 );
 
-INSERT INTO wbproj.users(username, email, pwd, spriteid, bgid, petid, score,unlock) VALUES ('admin','admin@gmail.com','admin3540',1,1,3,120,4);
-INSERT INTO wbproj.users(username, email, pwd) VALUES ('testing','testing@gmail.com','$2y$10$KGoGhPIzaod5OfLIFXzbJeY0sVDXT3sWEgrO0ttww8OYXN4L/C17a');
+INSERT INTO wbproj.users(username, email, pwd, score, unlock) VALUES ('testing','testing@gmail.com','$2y$10$KGoGhPIzaod5OfLIFXzbJeY0sVDXT3sWEgrO0ttww8OYXN4L/C17a',40,4);
+INSERT INTO wbproj.users(username, email, pwd) VALUES ('newuser','newuser@gmail.com','$2y$10$dgT0EPXD97wVfGbbipY0fOEkDosZ7Ar7USBNG3EE/zxI3WGIfLLUW');
 
 DROP TABLE IF EXISTS wbproj.questions;
 
