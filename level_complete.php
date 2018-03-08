@@ -87,9 +87,9 @@
 		$success_string = "Try again, you can do better!";
 	}
 	if ($unlock > $level && $old_unlock < $unlock && $unlock < 5) {
-		$success_string = "Congratulations! You have unlocked level ".$unlock."!";
-	} elseif ($level != 4 && $old_unlock == $unlock) {
-		$q_missing = 3 - $add_score/$question_value;
+		$success_string = "Congratulations! You have unlocked Level ".$unlock."!";
+	} elseif ($level != 4 && $old_unlock == $unlock && !$challenge) {
+		$q_missing = 3 - ($add_score)/$question_value;
 		$plural = ($q_missing != 1) ? "s" : "";
 		$success_string = "You need to answer ".$q_missing." more question".$plural." correctly to unlock level ".($unlock+1).".";
 	}
@@ -101,16 +101,14 @@
 		$player_level = 3;
 		$rest_score = 500;
 		$level_max = 500;
-	} elseif ($new_score > 200) {
+	} elseif ($new_score >= 200) {
 		$player_level = 3;
 		$rest_score = $rest_score - 200;
 		$level_max = 500;
-	} elseif ($new_score > 100) {
+	} elseif ($new_score >= 100) {
 		$player_level = 2;
 		$rest_score = $rest_score - 100;
 		$level_max = 200;
-	} else {
-		$rest_score = 100 - $rest_score;
 	}
 	$level_name = "Novice";
 	if ($player_level == 2) {

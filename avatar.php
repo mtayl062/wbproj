@@ -27,13 +27,13 @@
 		$level_max = 500;
 		$level_name = "Expert";
 		$progress_string = "You have reached the maximum amount of XP. <br>You are truly a master of fractions.";
-	} elseif ($score > 200) {
+	} elseif ($score >= 200) {
 		$player_level = 3;
 		$rest_score = $rest_score - 200;
 		$level_max = 500;
 		$level_name = "Adept";
 		$progress_string = "You only need <strong>".($level_max - $rest_score)."</strong> more XP <br>to reach Mastery Level: Expert.";
-	} elseif ($score > 100) {
+	} elseif ($score >= 100) {
 		$player_level = 2;
 		$rest_score = $rest_score - 100;
 		$level_max = 200;
