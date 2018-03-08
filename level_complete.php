@@ -12,6 +12,7 @@
 	$level = null;
 	$challenge = false;
 	$multiplier = 0;
+	$start_time = 0;
 	if (isset($_POST['lvl1'])) {
 		$level = 1;
 	} elseif (isset($_POST['lvl2'])) {
@@ -24,18 +25,22 @@
 		$level = 1;
 		$challenge = true;
 		$multiplier = 0.2;
+		$start_time = 15;
 	} elseif (isset($_POST['lvl2challenge'])) {
 		$level = 2;
 		$challenge = true;
 		$multiplier = 0.4;
+		$start_time = 30;
 	} elseif (isset($_POST['lvl3challenge'])) {
 		$level = 3;
 		$challenge = true;
 		$multiplier = 0.4;
+		$start_time = 35;
 	} elseif (isset($_POST['lvl4challenge'])) {
 		$level = 4;
 		$challenge = true;
 		$multiplier = 0.8;
+		$start_time = 40;
 	}
 	$question_value = 10;
 	$add_score = 0;
@@ -60,9 +65,11 @@
 	$old_score = $row[0];
 	$old_unlock = $row[1];
 	$new_score = $old_score + $add_score;
+	$leaderboard_score = $add_score;
 	if ($challenge) {
 		if ($time > 0) {
 			$new_score += $add_score*$multiplier;
+			$leaderboard_score += $leaderboard_score/10 * ($start_time - $time + 1);
 		}
 	}
 	$query = sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid);
