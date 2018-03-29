@@ -1,0 +1,14 @@
+# Google credentials and configuration
+google_client_id:      maximedtaylor@gmail.com
+google_client_secret:  harry22dragon
+google_project_id:     wbproj-csi3540
+
+# options are "mysql", "postgres", "mongodb", or "datastore"
+bookshelf_backend: postgres
+
+# configure CloudSQL for MySQL or PostgreSQL backend
+cloudsql_connection_name: wbproj-csi3540:uscentral1:wbprojdb
+cloudsql_database_name: postgres
+cloudsql_user: postgres
+cloudsql_password: csi3540
+cloudsql_port: 5432
