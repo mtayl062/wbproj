@@ -25,7 +25,7 @@
 }
 #sprite {
 	position: absolute;
-	bottom: 3;
+	bottom: 3px;
 	right: 0;
 }
 #pet {
