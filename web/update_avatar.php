@@ -7,12 +7,11 @@
 	} else {
 		$userid = $_SESSION["userid"];
 	}
-	$conn_string = include_once 'config.php';
-	$conn = pg_connect($conn_string);
+	$pdo = include_once 'config.php';
 	$sprite = $_POST['sprite_choice'];
 	$bg = $_POST['bg_choice'];
 	$pet = $_POST['pet_choice'];
-	$query = "update wbproj.users set spriteid='".$sprite."', bgid='".$bg."', petid='".$pet."' WHERE userid = '".$userid."';";
-	pg_query($conn, $query);
+	$query = $pdo->prepare("update wbproj.users set spriteid='".$sprite."', bgid='".$bg."', petid='".$pet."' WHERE userid = '".$userid."';");
+	$query->execute();
 	header("Location:avatar.php");
 ?>

@@ -1,36 +1,37 @@
 <?php
 	function gcd($a,$b) {
-    $a = abs($a); $b = abs($b);
-    if( $a < $b) list($b,$a) = Array($a,$b);
-    if( $b == 0) return $a;
-    $r = $a % $b;
-    while($r > 0) {
-        $a = $b;
-        $b = $r;
-        $r = $a % $b;
-    }
-    return $b;
+		$a = abs($a); $b = abs($b);
+		if( $a < $b) list($b,$a) = Array($a,$b);
+		if( $b == 0) return $a;
+		$r = $a % $b;
+		while($r > 0) {
+			$a = $b;
+			$b = $r;
+			$r = $a % $b;
+		}
+		return $b;
 	}
+
 	$level = null;
 	$challenge = false;
-	if (isset($_POST['lvl1'])) {
+	if (isset($_POST['lvl1_x'])) {
 		$level = 1;
-	} elseif (isset($_POST['lvl2'])) {
+	} elseif (isset($_POST['lvl2_x'])) {
 		$level = 2;
-	} elseif (isset($_POST['lvl3'])) {
+	} elseif (isset($_POST['lvl3_x'])) {
 		$level = 3;
-	} elseif (isset($_POST['lvl4'])) {
+	} elseif (isset($_POST['lvl4_x'])) {
 		$level = 4;
-	} elseif (isset($_POST['lvl1challenge'])) {
+	} elseif (isset($_POST['lvl1challenge_x'])) {
 		$level = 1;
 		$challenge = true;
-	} elseif (isset($_POST['lvl2challenge'])) {
+	} elseif (isset($_POST['lvl2challenge_x'])) {
 		$level = 2;
 		$challenge = true;
-	} elseif (isset($_POST['lvl3challenge'])) {
+	} elseif (isset($_POST['lvl3challenge_x'])) {
 		$level = 3;
 		$challenge = true;
-	} elseif (isset($_POST['lvl4challenge'])) {
+	} elseif (isset($_POST['lvl4challenge_x'])) {
 		$level = 4;
 		$challenge = true;
 	}
@@ -38,31 +39,31 @@
 	if (isset($_POST['qid'])) {
 		$question = intval($_POST['qid']);
 	}
-	$conn_string = include_once 'config.php';
-	$conn = pg_connect($conn_string);
+
+	$pdo = include_once 'config.php';
 	$score = 0;
 	if (isset($_POST['score'])) {
 		$score = intval($_POST['score']);
 	}
-	$query = sprintf("select n1, d1, n2, d2, a, b, c, d, answer, op from wbproj.questions WHERE lid = '%d' AND qid = '%d'",$level,$question);
-	$result = pg_query($conn, $query);
-	$row = pg_fetch_row($result);
-	$n1_og = $row[0];
-	$d1_og = $row[1];
+	$query = $pdo->prepare(sprintf("select n1, d1, n2, d2, a, b, c, d, answer, op from wbproj.questions WHERE lid = '%d' AND qid = '%d'",$level,$question));
+	$query->execute();
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+	$n1_og = $row['n1'];
+	$d1_og = $row['d1'];
 	$gcd1 = gcd($n1_og,$d1_og);
 	$n1 = $n1_og / $gcd1;
 	$d1 = $d1_og / $gcd1;
-	$n2_og = $row[2];
-	$d2_og = $row[3];
+	$n2_og = $row['n2'];
+	$d2_og = $row['d2'];
 	$gcd2 = gcd($n2_og,$d2_og);
 	$n2 = $n2_og / $gcd2;
 	$d2 = $d2_og / $gcd2;
-	$a_choice = $row[4];
-	$b_choice = $row[5];
-	$c_choice = $row[6];
-	$d_choice = $row[7];
-	$ans = $row[8];
-	$op = $row[9];
+	$a_choice = $row['a'];
+	$b_choice = $row['b'];
+	$c_choice = $row['c'];
+	$d_choice = $row['d'];
+	$ans = $row['answer'];
+	$op = $row['op'];
 	$lans = null;
 	$rans = null;
 	$rans_style = null;
@@ -146,7 +147,7 @@
 		<div>
 		<div>
 			<form method="POST" action="<?php if ($question == 4) {echo 'level_complete.php';} else {echo 'play.php';}?>">
-				<input type="hidden" name="lvl<?php if ($challenge) {echo $level."challenge";} else {echo $level;}?>" value="lvl<?php if ($challenge) {echo $level."challenge";} else {echo $level;}?>">
+				<input type="hidden" name="lvl<?php if ($challenge) {echo $level."challenge_x";} else {echo $level."_x";}?>" value="lvl<?php if ($challenge) {echo $level."challenge_x";} else {echo $level."_x";}?>">
 				<input type="hidden" name="qid" value="<?php echo($question + 1)?>">
 				<input type="hidden" name="score" id="score" value="<?php echo($score)?>">
 				<?php if ($challenge) {echo '<input type="hidden" name="time" id="time" value="'.$time.'">';}?>

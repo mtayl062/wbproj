@@ -36,22 +36,20 @@
     <section id="mainbox" class="w3-container w3-content w3-center">
         <div>
             <?php
-				$conn_string = include_once 'config.php';
-				$db = pg_connect($conn_string);
-				$query = sprintf("select spriteid, bgid, petid from wbproj.users where userid='%s';", $userid);
-				$result = pg_query($db, $query);
-				while ($row = pg_fetch_row($result)) {
-					echo '<image id="sprite" src="images/sprite'.$row[0].'.png" alt="Your sprite"/>'."\n";
-					echo '<image id="bg" src="images/bg'.$row[1].'.png" alt="Your background"/>'."\n";
-					echo '<image id="pet" src="images/pet'.$row[2].'.png" alt="Your avatar"/>'."\n";
-					echo '</div>'."\n";
-					echo '<p class="top-bottom-space"><form method="POST" action="/update_avatar.php" id="avatarForm">';
-					echo '<input type="hidden" id="sprite_choice" name="sprite_choice" value="'.$row[0].'"/>';
-					echo '<input type="hidden" id="bg_choice" name="bg_choice" value="'.$row[1].'"/>';
-					echo '<input type="hidden" id="pet_choice" name="pet_choice" value="'.$row[2].'"/>';
-					echo '<input id="submission" type="submit" value="Submit Changes" class="w3-button w3-purple">';
-					echo '</form></p>'."\n";
-				}
+				$pdo = include_once 'config.php';
+				$query = $pdo->prepare(sprintf("select spriteid, bgid, petid from wbproj.users where userid='%s';", $userid));
+				$query->execute();
+				$row = $query->fetch(PDO::FETCH_ASSOC);
+				echo '<image id="sprite" src="images/sprite'.$row['spriteid'].'.png" alt="Your sprite"/>'."\n";
+				echo '<image id="bg" src="images/bg'.$row['bgid'].'.png" alt="Your background"/>'."\n";
+				echo '<image id="pet" src="images/pet'.$row['petid'].'.png" alt="Your avatar"/>'."\n";
+				echo '</div>'."\n";
+				echo '<p class="top-bottom-space"><form method="POST" action="/update_avatar.php" id="avatarForm">';
+				echo '<input type="hidden" id="sprite_choice" name="sprite_choice" value="'.$row['spriteid'].'"/>';
+				echo '<input type="hidden" id="bg_choice" name="bg_choice" value="'.$row['bgid'].'"/>';
+				echo '<input type="hidden" id="pet_choice" name="pet_choice" value="'.$row['petid'].'"/>';
+				echo '<input id="submission" type="submit" value="Submit Changes" class="w3-button w3-purple">';
+				echo '</form></p>'."\n";
 			?>
         <p class="w3-text w3-large"><button onclick="changeImageLeft('sprite',6,5)">&lt;</button>  Avatar Color  <button onclick="changeImageRight('sprite',6,5)">&gt;</button></p>
         <p class="w3-text w3-large"><button onclick="changeImageLeft('bg',2,5)">&lt;</button>  Background  <button onclick="changeImageRight('bg',2,5)">&gt;</button ></p>

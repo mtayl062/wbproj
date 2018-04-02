@@ -1,6 +1,5 @@
 <?php
-	$conn_string = include_once 'config.php';
-	$conn = pg_connect($conn_string);		
+	$pdo = include_once 'config.php';	
 	$username = $password = $confirm_password = $email = "";
 	$username_err = $password_err = $confirm_password_err = $email_err = "";
 	
@@ -51,8 +50,8 @@
 			$param_username = $username;
 			$param_password = password_hash($password,PASSWORD_DEFAULT);
 			$param_email = $email;
-			$query = sprintf("INSERT INTO wbproj.users(username, email, pwd) VALUES('%s','%s','%s');",$param_username,$param_email,$param_password);
-			$results= pg_query($conn, $query);
+			$query = $pdo->prepare(sprintf("INSERT INTO wbproj.users(username, email, pwd) VALUES('%s','%s','%s');",$param_username,$param_email,$param_password));
+			$query->execute();
 			header("location: login.php");
 		}
 	}

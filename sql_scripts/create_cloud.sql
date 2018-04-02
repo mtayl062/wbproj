@@ -57,3 +57,16 @@ INSERT INTO wbproj.questions VALUES(4,2,2,4,'+',4,10,'9/10','3/7','3/10','7/9','
 INSERT INTO wbproj.questions VALUES(4,3,12,15,'-',3,6,'3/3','3/7','3/5','3/10','D');
 INSERT INTO wbproj.questions VALUES(4,4,5,10,'-',3,18,'2/5','1/5','1/3','1/4','C');
 
+DROP TABLE IF EXISTS wbproj.leaderboard;
+
+CREATE TABLE wbproj.leaderboard (
+	lid VARCHAR(1),
+	username VARCHAR(20),
+	score INT
+);
+
+INSERT INTO wbproj.leaderboard VALUES(1,'john',3);
+INSERT INTO wbproj.leaderboard VALUES(2,'john',4);
+INSERT INTO wbproj.leaderboard VALUES(3,'john',2);
+INSERT INTO wbproj.leaderboard VALUES(4,'john',5);
+

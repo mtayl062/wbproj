@@ -9,13 +9,12 @@
 		$userid = $_SESSION["userid"];
 		$username = $_SESSION["username"];
 	}
-	$conn_string = include_once 'config.php';
-	$db = pg_connect($conn_string);
-	$query = sprintf("select score, unlock from wbproj.users where userid='%s'",$userid);
-	$result = pg_query($db, $query);
-	$row = pg_fetch_row($result);
-	$score = $row[0];
-	$unlock = $row[1];
+	$pdo = include_once 'config.php';
+	$query = $pdo->prepare(sprintf("select spriteid, bgid, petid, score, unlock from wbproj.users where userid='%s'",$userid));
+	$query->execute();
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+	$score = $row['score'];
+	$unlock = $row['unlock'];
 	$player_level = 1;
 	$rest_score = $score;
 	$level_max = 100;
@@ -72,16 +71,9 @@
             <section id="avatar_section" class="w3-container w3-content w3-center">
                 <div id="avatar_inner">
 					<?php
-						$db = pg_connect('host=localhost port=5432 dbname=postgres user=postgres password=csi3540');
-						$query = sprintf("select spriteid, bgid, petid, score from wbproj.users where userid='%s'",$userid);
-						$result = pg_query($db, $query);
-						$score = null;
-						while ($row = pg_fetch_row($result)) {
-							echo '<image id="sprite" src="images/sprite'.$row[0].'.png" alt="Your sprite"/>'."\n";
-							echo '<image id="bg" src="images/bg'.$row[1].'.png" alt="Your background"/>'."\n";
-							echo '<image id="pet" src="images/pet'.$row[2].'.png" alt="Your avatar"/>'."\n";
-							$score = $row[3];
-						}
+						echo '<image id="sprite" src="images/sprite'.$row['spriteid'].'.png" alt="Your sprite"/>'."\n";
+						echo '<image id="bg" src="images/bg'.$row['bgid'].'.png" alt="Your background"/>'."\n";
+						echo '<image id="pet" src="images/pet'.$row['petid'].'.png" alt="Your avatar"/>'."\n";
 					?>
                 </div>
                 <br>

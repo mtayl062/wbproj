@@ -1,9 +1,5 @@
 <?php
 	$pdo = include_once 'config.php';
-	$select = $pdo->prepare('SELECT * from wbproj.users');
-	$select->execute();
-	$row = $select->fetch(PDO::FETCH_ASSOC);
-	echo $row;
 	$username = $password = "";
 	$username_err = $password_err = "";
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,16 +16,16 @@
 		
 		if (empty($username_err) && empty($password_err)) {
 			$param_username = $username;
-			$query = sprintf("SELECT username, pwd, userid FROM wbproj.users WHERE username='%s';",$username);
-			$result = pg_query($conn, $query);
-			if (pg_num_rows($result) == 1) {
-				$row = pg_fetch_row($result);
-				$stored_password = trim($row[1]);
+			$query = $pdo->prepare(sprintf("SELECT username, pwd, userid FROM wbproj.users WHERE username='%s';",$username));
+			$query->execute();
+			if ($query->rowCount() == 1) {
+				$row = $query->fetch(PDO::FETCH_ASSOC);
+				$stored_password = trim($row['pwd']);
 				$correct_login = password_verify($password,$stored_password);
 				if ($correct_login) {
 					session_start();
 					$_SESSION["username"] = $username;
-					$_SESSION["userid"] = $row[2];
+					$_SESSION["userid"] = $row['userid'];
 					$_SESSION["score"] = "0";
 					header('location: index.php');
 				} else {

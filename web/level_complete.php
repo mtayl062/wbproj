@@ -13,30 +13,30 @@
 	$challenge = false;
 	$multiplier = 0;
 	$start_time = 0;
-	if (isset($_POST['lvl1'])) {
+	if (isset($_POST['lvl1_x'])) {
 		$level = 1;
-	} elseif (isset($_POST['lvl2'])) {
+	} elseif (isset($_POST['lvl2_x'])) {
 		$level = 2;
-	} elseif (isset($_POST['lvl3'])) {
+	} elseif (isset($_POST['lvl3_x'])) {
 		$level = 3;
-	} elseif (isset($_POST['lvl4'])) {
+	} elseif (isset($_POST['lvl4_x'])) {
 		$level = 4;
-	} elseif (isset($_POST['lvl1challenge'])) {
+	} elseif (isset($_POST['lvl1challenge_x'])) {
 		$level = 1;
 		$challenge = true;
 		$multiplier = 0.2;
 		$start_time = 15;
-	} elseif (isset($_POST['lvl2challenge'])) {
+	} elseif (isset($_POST['lvl2challenge_x'])) {
 		$level = 2;
 		$challenge = true;
 		$multiplier = 0.4;
 		$start_time = 30;
-	} elseif (isset($_POST['lvl3challenge'])) {
+	} elseif (isset($_POST['lvl3challenge_x'])) {
 		$level = 3;
 		$challenge = true;
 		$multiplier = 0.4;
 		$start_time = 35;
-	} elseif (isset($_POST['lvl4challenge'])) {
+	} elseif (isset($_POST['lvl4challenge_x'])) {
 		$level = 4;
 		$challenge = true;
 		$multiplier = 0.8;
@@ -57,13 +57,12 @@
 		$time = intval($_POST['time']);
 	}
 
-	$conn_string = include_once 'config.php';
-	$conn = pg_connect($conn_string);
-	$query = sprintf("select score,unlock from wbproj.users WHERE userid='%s';",$userid);
-	$result = pg_query($conn, $query);
-	$row = pg_fetch_row($result);
-	$old_score = $row[0];
-	$old_unlock = $row[1];
+	$pdo = include_once 'config.php';
+	$query = $pdo->prepare(sprintf("select score,unlock from wbproj.users WHERE userid='%s';",$userid));
+	$query->execute();
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+	$old_score = $row['score'];
+	$old_unlock = $row['unlock'];
 	$new_score = $old_score + $add_score;
 	$leaderboard_score = $add_score;
 	if ($challenge) {
@@ -72,11 +71,11 @@
 			$leaderboard_score += $leaderboard_score/10 * ($start_time - $time + 1);
 		}
 	}
-	$query = sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid);
-	pg_query($conn, $query);
+	$query = $pdo->prepare(sprintf("update wbproj.users set score='%s' where userid='%s';",$new_score,$userid));
+	$query->execute();
 	if ($unlock > $old_unlock) {
-		$query = sprintf("update wbproj.users set unlock='%d' where userid='%s';",$unlock,$userid);
-		pg_query($conn, $query);
+		$query = $pdo->prepare(sprintf("update wbproj.users set unlock='%d' where userid='%s';",$unlock,$userid));
+		$query->execute();
 	}
 	
 	$score_string = null;
@@ -158,7 +157,20 @@
 			<p class="w3-purple w3-padding-medium">Fractions Mastery: <?php echo $level_name ?></p>
 			<span>Your progress: </span>	
 			<meter min="0" max="<?php echo $level_max ?>" value="<?php echo $rest_score ?>"></meter>
-			<a><?php echo $rest_score ?>/<?php echo $level_max ?> XP</a>
+			<a><?php echo $rest_score; ?>/<?php echo $level_max; ?> XP</a>
+			<p class="w3-purple w3-padding-medium">LEADERBOARD</p>
+			<?php
+				$query = $pdo->prepare("insert into wbproj.leaderboard values (".$level.",'".$username."',".$leaderboard_score.");");
+				$query->execute();
+				$leaderboard_query = $pdo->prepare("select * from wbproj.leaderboard where lid = '".$level."' order by score desc limit 3");
+				$leaderboard_query->execute();
+				$result = $leaderboard_query->fetchAll(PDO::FETCH_ASSOC);
+				$number = 1;
+				foreach ($result as $row) {
+					echo "<p>".$number.'. '.$row['username']." = ".$row['score']." XP</p>";
+					$number = $number + 1;
+				}
+			?>
 			<p><a class="w3-button w3-purple" href="levels.php">Return to Level Select</a></p>
 	</section>
 	

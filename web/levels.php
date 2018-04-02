@@ -1,5 +1,5 @@
 <?php
-	$conn_string = include_once 'config.php';
+	$pdo = include_once 'config.php';
 	session_start();
 	$userid = null;
 	if (!isset($_SESSION["userid"]) || empty($_SESSION['userid'])) {
@@ -8,11 +8,10 @@
 	} else {
 		$userid = $_SESSION["userid"];
 	}
-	$conn = pg_connect($conn_string);
-	$query = sprintf("SELECT unlock FROM wbproj.users WHERE userid = '%s'",$userid);
-	$result = pg_query($conn, $query);
-	$row = pg_fetch_row($result);
-	$level_unlock = intval($row[0]);
+	$query = $pdo->prepare(sprintf("SELECT unlock FROM wbproj.users WHERE userid = '%s'",$userid));
+	$query->execute();
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+	$level_unlock = intval($row['unlock']);
 ?>
 
 <!DOCTYPE html>
@@ -44,16 +43,16 @@
 			<h3 class="w3-purple">NORMAL PLAY</h3>
 			<div><input type="image" id = "lvlbutton" name="lvl1" value="lvl1" src="images/level1.png" alt="Level 1">
 			<div name="lvl2" <?php if ($level_unlock < 2) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl2" value="lvl2" src="images/level2.png" alt="Level 2"></div>
-			<div name="lvl3" <?php if ($level_unlock < 3) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl3" value="lvl3" src="images/level3.png" alt="Level 3" title="Locked"/></div>
-			<div name="lvl4" <?php if ($level_unlock < 4) {echo 'class="locked" ';} ?>><input type= "image" id = "lvlbutton" name="lvl4" value="lvl4" src="images/level4.png" alt="Level 4" title="Locked"/></div>
+			<div name="lvl3" <?php if ($level_unlock < 3) {echo 'class="locked" ';} ?>><input type="image" id = "lvlbutton" name="lvl3" value="lvl3" src="images/level3.png" alt="Level 3"/></div>
+			<div name="lvl4" <?php if ($level_unlock < 4) {echo 'class="locked" ';} ?>><input type= "image" id = "lvlbutton" name="lvl4" value="lvl4" src="images/level4.png" alt="Level 4"/></div>
 		</form>
 		<form action="/play.php" method="POST" class="top-bottom-space">
 			<h3 class="w3-purple">TIME CHALLENGE</h3>
 			<p>Obtain bonus XP for a level by completing the time challenge!</p>
 			<input type="image" <?php if ($level_unlock < 2) {echo 'class="locked"';}?> id="timebutton" name="lvl1challenge" value="lvl1challenge" src="images/time1.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock < 3) {echo 'class="locked"';}?> id="timebutton" name="lvl2challenge" value="lvl2challenge" src="images/time2.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock < 4) {echo 'class="locked"';}?> id="timebutton" name="lvl3challenge" value="lvl3challenge" src="images/time3.png" alt="Level 1 Time Challenge">
-			<input type="image" <?php if ($level_unlock < 5) {echo 'class="locked"';}?> id="timebutton" name="lvl4challenge" value="lvl4challenge" src="images/time4.png" alt="Level 1 Time Challenge">
+			<input type="image" <?php if ($level_unlock < 3) {echo 'class="locked"';}?> id="timebutton" name="lvl2challenge" value="lvl2challenge" src="images/time2.png" alt="Level 2 Time Challenge">
+			<input type="image" <?php if ($level_unlock < 4) {echo 'class="locked"';}?> id="timebutton" name="lvl3challenge" value="lvl3challenge" src="images/time3.png" alt="Level 3 Time Challenge">
+			<input type="image" <?php if ($level_unlock < 5) {echo 'class="locked"';}?> id="timebutton" name="lvl4challenge" value="lvl4challenge" src="images/time4.png" alt="Level 4 Time Challenge">
 			<p id="note">You must complete a level in normal play before the time challenge is unlocked.</p>
 		</form>
 	</section>
