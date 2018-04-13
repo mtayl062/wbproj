@@ -4,6 +4,3 @@ call gsutil acl ch -u me7yaqszynenblqp5d36gozsyq@speckle-umbrella-pg-5.iam.gserv
 call gcloud sql instances import wbprojdb gs://wbproj-csi3540-dump/create_cloud.sql --database postgres --quiet
 
 call gcloud app deploy --quiet
-
-
-
